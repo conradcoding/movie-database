@@ -227,10 +227,6 @@
                         <div class="card shadow">
                             <div class="card-header text-center">
                                 <h1>Comments</h1>
-                                <form action="add_comment.php" method="POST">
-                                    <input type="hidden" name="movie" value='$movie'>
-                                    <input type="submit" class="btn btn-primary btn-sm float-end" value="Add Comment">
-                                <form>
                             </div>
                 _END;
                             if($n > 0)
