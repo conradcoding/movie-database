@@ -1,10 +1,10 @@
 <?php
 
     include('header.php');
-    // If statement to be implemented once index page is completed.
-    /*if (isset($_POST['showMovie']))
+    if (isset($_POST['showMovie']))
     {
-        $movie = $_POST['showMovie'];*/
+        // Set the variable $movie (used for SQL queries) equal to POST['showMovie']
+        $movie = $_POST['showMovie'];
         
         $connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 
@@ -13,15 +13,15 @@
         {
             die("Connection failed: " . $mysqli_connect_error);
         }
-        // 100 is a placeholder for testing
 
+        // $movie is the value sent through POST
         $query = "SELECT title, release_date, runtime, tagline,
         overview, poster_path, revenue, vote_average,
-        budget, genres, backdrop_path FROM movies WHERE movie_id = 100";
+        budget, genres, backdrop_path FROM movies WHERE movie_id = $movie";
         $result = mysqli_query($connection, $query);
         $row = mysqli_fetch_assoc($result);  
         
-        $query2 = "SELECT cast, crew FROM credits WHERE movie_id = 100";
+        $query2 = "SELECT cast, crew FROM credits WHERE movie_id = $movie";
         $result2 = mysqli_query($connection, $query2);
         $row2 = mysqli_fetch_assoc($result2);
         
@@ -43,7 +43,7 @@
                 <li class="list-group-item">Revenue: $'.$row['revenue'].'</li>
                 <li class="list-group-item">'.$row['vote_average'].'/10</li>';
 
-                $moviegenre_query =  "SELECT DISTINCT JSON_UNQUOTE(JSON_EXTRACT(genres, CONCAT('$[', seq_0_to_100.seq, '].name'))) AS genre_name FROM movies JOIN seq_0_to_100 WHERE movie_id = 100 HAVING genre_name IS NOT NULL";
+                $moviegenre_query =  "SELECT DISTINCT JSON_UNQUOTE(JSON_EXTRACT(genres, CONCAT('$[', seq_0_to_100.seq, '].name'))) AS genre_name FROM movies JOIN seq_0_to_100 WHERE movie_id = $movie HAVING genre_name IS NOT NULL";
                 $moviegenre_result = mysqli_query($connection, $moviegenre_query);
                 $find_genres_n = mysqli_num_rows($moviegenre_result);
 
@@ -76,7 +76,7 @@
                 <h6 class="card-title">Cast Members</h6>';
 
                 $actor_query =  "SELECT DISTINCT JSON_UNQUOTE(JSON_EXTRACT(cast, CONCAT('$[', seq_0_to_100.seq, '].name'))) 
-                AS actor_name, JSON_UNQUOTE(JSON_EXTRACT(cast, CONCAT('$[', seq_0_to_100.seq, '].character'))) AS actor_char FROM credits JOIN seq_0_to_100 WHERE movie_id = 100 HAVING actor_name IS NOT NULL";
+                AS actor_name, JSON_UNQUOTE(JSON_EXTRACT(cast, CONCAT('$[', seq_0_to_100.seq, '].character'))) AS actor_char FROM credits JOIN seq_0_to_100 WHERE movie_id = $movie HAVING actor_name IS NOT NULL";
                 $actor_result = mysqli_query($connection, $actor_query);
                 $find_actors_n = mysqli_num_rows($actor_result);
 
@@ -107,7 +107,7 @@
         <h6 class="card-title">Crew Members</h6>';
         
                 $crew_query =  "SELECT DISTINCT JSON_UNQUOTE(JSON_EXTRACT(crew, CONCAT('$[', seq_0_to_100.seq, '].job'))) 
-                AS crew_job, JSON_UNQUOTE(JSON_EXTRACT(crew, CONCAT('$[', seq_0_to_100.seq, '].name'))) AS crew_name FROM credits JOIN seq_0_to_100 WHERE movie_id = 100 HAVING crew_name IS NOT NULL";
+                AS crew_job, JSON_UNQUOTE(JSON_EXTRACT(crew, CONCAT('$[', seq_0_to_100.seq, '].name'))) AS crew_name FROM credits JOIN seq_0_to_100 WHERE movie_id = $movie HAVING crew_name IS NOT NULL";
                 $crew_result = mysqli_query($connection, $crew_query);
                 $find_crew_n = mysqli_num_rows($crew_result);
 
@@ -138,10 +138,13 @@
         echo'
             </div>
         </div>';
-   // else { echo 'No movie was selected'; }
+    
 
 
-   // }
+   }
+   else { 
+       echo 'No movie was selected'; 
+   }
     include('footer.php');
     echo"</body></html>";
 

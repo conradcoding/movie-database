@@ -1,0 +1,22 @@
+h1,h4 {
+    color: rgb(252, 193, 56);
+    text-align: center;
+}
+h2, h3 {
+    color: rgb(252, 193, 56);
+}
+
+body {
+    background-color: rgb(32, 72, 152);
+}
+
+.post-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    flex-basis: auto;
+    margin-bottom: 3rem;
+    padding-right: 8rem;
+    padding-left: 8rem;
+}
