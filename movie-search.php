@@ -25,7 +25,7 @@
                             <hr>
                             <?php
                                 //Set connection
-                                $conn = mysqli_connect("localhost", "root", "", "the_movie_database");
+                                $conn = mysqli_connect("localhost", "root", "", "rbb");
 
                                 //Set query to find all genres in 'movies' table, result and no. of rows
                                 $find_genres_query =  "SELECT DISTINCT JSON_UNQUOTE(JSON_EXTRACT(genres, CONCAT('$[', seq_0_to_100.seq, '].id'))) AS genre_id, JSON_UNQUOTE(JSON_EXTRACT(genres, CONCAT('$[', seq_0_to_100.seq, '].name'))) AS genre_name FROM movies JOIN seq_0_to_100 HAVING genre_name IS NOT NULL";
@@ -128,7 +128,7 @@
                             function filter_data()
                             {
                                 //Set connection
-                                $conn = mysqli_connect("localhost", "root", "", "the_movie_database");
+                                $conn = mysqli_connect("localhost", "root", "", "rbb");
 
                                 //Create variables
                                 $genres = "";
@@ -195,7 +195,7 @@
                                 $revenue_only = "";
 
                                 //Start of the query selects relevant movie details to be displayed
-                                $start = "SELECT id, title, poster_path, vote_average, tagline FROM movies";
+                                $start = "SELECT movie_id, title, poster_path, vote_average, tagline FROM movies";
 
                                 //If 'genres' (array) is set
                                 if(isset($_GET['genres']))
@@ -379,8 +379,8 @@
                                                     <h7 class="card-title"><?= $row['tagline']; ?></h7>
                                                     <hr>
                                                     <?//Search button posts movie id to another page which displays full details of selected movie ?>
-                                                    <form action="movie.php" method="POST">
-                                                        <button class="btn btn-primary btn-sm" name="id" value="<?=$row['id'];?>">See details</button>
+                                                    <form action="details.php" method="POST">
+                                                        <button class="btn btn-primary btn-sm" name="showMovie" value="<?=$row['movie_id'];?>">See details</button>
                                                     </form>
                                                 </div>
                                             </div>

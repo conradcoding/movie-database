@@ -1,5 +1,5 @@
 <?php
-    include "credentials.php";
+    require_once "credentials.php";
     session_start();
 
     echo <<<_END
@@ -20,6 +20,7 @@
             </header>
     _END;
     $navigation = "";
+    
     if(isset($_SESSION['loggedIn']))
     {
         if ($_SESSION['username'] == 'admin')
@@ -35,6 +36,9 @@
                             <ul class='navbar-nav'>
                                 <li class='nav-item'>
                                     <a class='nav-link' href='index.php'>Home</a>
+                                </li>
+                                <li class='nav-item'>
+                                    <a class='nav-link' href='search.php'>Search</a>
                                 </li>
                                 <li class='nav-item'>
                                     <a class='nav-link' href='.php'>Create Movie</a>
@@ -65,13 +69,13 @@
                                 <a class='nav-link' href='index.php'>Home</a>
                             </li>            
                             <li class='nav-item'>
-                                <a class='nav-link' href='.php'>Manage Movies</a>
+                                <a class='nav-link' href='search.php'>Search</a>
                             </li>
                             <li class='nav-item'>
-                            <a class='nav-link' href='search.php'>Search</a>
+                                <a class='nav-link' href='my-profile.php'>My Profile</a>
                             </li>
                             <li class='nav-item'>
-                                <a class='nav-link' href='.php'>Sign-Out ({$_SESSION['username']})</a>
+                                <a class='nav-link' href='logout.php'>Log Out ({$_SESSION['username']})</a>
                             </li>
                     </ul>
                 </div>
@@ -96,10 +100,10 @@
                     <a class='nav-link' href='search.php'>Search</a>
                    </li>
                     <li class='nav-item'>
-                        <a class='nav-link' href='signup_screen.php'>Sign-Up</a>
+                        <a class='nav-link' href='signup.php'>Sign Up</a>
                     </li>
                     <li class='nav-item'>
-                        <a class='nav-link' href='login_screen.php'>Sign-In</a>
+                        <a class='nav-link' href='login.php'>Log In</a>
                     </li>
                 </ul>
             </div>

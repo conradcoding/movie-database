@@ -40,6 +40,7 @@ elseif (isset($_POST['username']))
         if ($n > 0)
         {
             $_SESSION['loggedIn'] = true;
+            $_SESSION['username'] = $username;
             $loginMessage = "Hello $username, welcome back to the movie database. Please <a href='index.php'>click here</a>";
         }
         else

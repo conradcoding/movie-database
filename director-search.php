@@ -56,7 +56,7 @@
                             function filter_data()
                             {
                                 //Set connection
-                                $conn = mysqli_connect("localhost", "root", "", "the_movie_database");
+                                $conn = mysqli_connect("localhost", "root", "", "rbb");
 
                                 //Create variables
                                 $director_name = "";
@@ -105,9 +105,6 @@
                                                 <div class="card-body">
                                                 <img src="https://image.tmdb.org/t/p/original<?= $row['director_photo']; ?>" class="card-img-top">
                                                     <h6 class="card-title"><?= $row['director_name']; ?></h5>
-                                                    <form action="director.php" method="POST">
-                                                        <button class="btn btn-primary btn-sm" name="id" value="<?=$row['director_id'];?>">See details</button>
-                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -128,7 +125,7 @@
                             <?php
 
                             //Set query to fetch movie details
-                            $query2 = "SELECT m.id, m.title, m.poster_path, m.vote_average, m.tagline FROM movies m INNER JOIN credits c USING (id) WHERE JSON_EXTRACT(crew, '$[*].name') LIKE '%$director_name%'";
+                            $query2 = "SELECT m.movie_id, m.title, m.poster_path, m.vote_average, m.tagline FROM movies m INNER JOIN credits c USING (movie_id) WHERE JSON_EXTRACT(crew, '$[*].name') LIKE '%$director_name%'";
                             $result2 = mysqli_query($conn, $query2);
                             $n2 = mysqli_num_rows($result2);
 
@@ -150,8 +147,8 @@
                                                 <h5 class="card-title"><?= $row['title']; ?></h5>
                                                 <h7 class="card-title"><?= $row['tagline']; ?></h7>
                                                 <hr>
-                                                <form action="movie.php" method="POST">
-                                                    <button class="btn btn-primary btn-sm" name="id" value="<?=$row['id'];?>">See details</button>
+                                                <form action="details.php" method="POST">
+                                                    <button class="btn btn-primary btn-sm" name="showMovie" value="<?=$row['movie_id'];?>">See details</button>
                                                 </form>
                                             </div>
                                         </div>
