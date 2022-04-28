@@ -25,7 +25,12 @@ if (isset($_POST['rating_value']))
         
         if ($update_user_rating_result && $update_vote_average_result)
         {
-            header('Location: details.php');
+            echo "You have successfully changed your rating for this movie!";
+            echo <<<_END
+                <form action="details.php" method="post">
+                    <button type="submit" name="showMovie" value="$movie">Click here to return</button>
+                </form>
+            _END;
         }
         else
         {
@@ -46,7 +51,12 @@ if (isset($_POST['rating_value']))
 
         if($add_rating_result && $update_vote_count_result && $update_vote_average_result)
         {
-            header("Location: details.php");
+            echo "You have successfully rated this movie!";
+            echo <<<_END
+                <form action="details.php" method="post">
+                    <button type="submit" name="showMovie" value="$movie">Click here to return</button>
+                </form>
+            _END;
         }
         else
         {
