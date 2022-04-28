@@ -14,7 +14,12 @@ if (isset($_POST['favourite_film']))
 
     if ($add_to_favourites_result)
     {
-        header('Location: details.php');
+        echo "This film is now your favourite film!";
+        echo <<<_END
+        <form action="details.php" method="post">
+            <button type="submit" name="showMovie" value="$movie">Click here to return</button>
+        </form>
+        _END;
     }
     else
     {
@@ -32,7 +37,12 @@ else if (isset($_POST['remove_film']))
 
     if ($remove_from_favourites_result)
     {
-        header('Location: details.php');
+        echo "This film is now no longer your favourite film!";
+        echo <<<_END
+        <form action="details.php" method="post">
+            <button type="submit" name="showMovie" value="$movie">Click here to return</button>
+        </form>
+        _END;
     }
     else
     {
