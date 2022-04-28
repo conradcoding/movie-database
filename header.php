@@ -75,6 +75,9 @@
                                 <a class='nav-link' href='my-profile.php'>My Profile</a>
                             </li>
                             <li class='nav-item'>
+                                <a class='nav-link' href='watchlist.php'>Watchlist</a>
+                            </li>
+                            <li class='nav-item'>
                                 <a class='nav-link' href='logout.php'>Log Out ({$_SESSION['username']})</a>
                             </li>
                     </ul>

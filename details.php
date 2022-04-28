@@ -6,6 +6,7 @@
     $show_comments_form = false;
     $show_favourites_form = false;
     $add_comments_form = false;
+    $show_watchlist_form = false;
 
     if (isset($_SESSION['loggedIn']))
     {
@@ -13,6 +14,7 @@
         $show_ratings_form = true;
         $show_favourites_form = true;
         $add_comments_form = true;
+        $show_watchlist_form = true;
     }
     else
     {
@@ -86,6 +88,36 @@
                         <form action="favourite_film.php" method="POST">
                             <input type="hidden" name="favourite_film" value='$movie'>
                             <input type="submit" id="3" value="Add to Favourites">
+                        </form>
+                    </li>
+                    _END;
+                }
+            }
+
+            if ($show_watchlist_form)
+            {
+                $check_existing_watchlist_query = "SELECT movie_id, username FROM watchlist WHERE movie_id = '$movie' AND username = '$username'";
+                $check_existing_watchlist_result = mysqli_query($connection, $check_existing_watchlist_query);
+                $n = mysqli_num_rows($check_existing_watchlist_result);
+
+                if ($n > 0)
+                {
+                    echo <<<_END
+                    <li class="list-inline-item h4">
+                        <form action="updatewatchlist.php" method="POST">
+                            <input type="hidden" name="removeWatchList" value='$movie'>
+                            <input type="submit" value="Remove from watchlist">
+                        </form>
+                    </li>
+                    _END;
+                }
+                else
+                {
+                    echo <<<_END
+                    <li class="list-inline-item h4">
+                        <form action="updatewatchlist.php" method="POST">
+                            <input type="hidden" name="addWatchList" value='$movie'>
+                            <input type="submit" id="3" value="Add to watchlist">
                         </form>
                     </li>
                     _END;
