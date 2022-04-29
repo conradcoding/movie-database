@@ -42,16 +42,13 @@
                                     <a class='nav-link' href='search.php'>Search</a>
                                 </li>
                                 <li class='nav-item'>
-                                    <a class='nav-link' href='.php'>Create Movie</a>
+                                    <a class='nav-link' href='my-profile.php'>My Profile</a>
                                 </li>
                                 <li class='nav-item'>
-                                    <a class='nav-link' href='.php'>Manage All Movies</a>
+                                    <a class='nav-link' href='watchlist.php'>Watchlist</a>
                                 </li>
                                 <li class='nav-item'>
-                                    <a class='nav-link' href='.php'>Manage Users</a>
-                                </li>
-                                <li class='nav-item'>
-                                    <a class='nav-link' href='.php'>Sign-Out ({$_SESSION['username']})</a>
+                                    <a class='nav-link' href='logout.php'>Log Out ({$_SESSION['username']})</a>
                                 </li>
                             </ul>
                     </nav>
@@ -63,27 +60,25 @@
                 $navigation = 
                 "
                 <body>
-                    <nav class='navbar navbar-expand-sm bg-dark justify-content-center'>
-                        <div class='container-fluid'>
-                        <ul class='navbar-nav'>
-                            <li class='nav-item'>
-                                <a class='nav-link' href='index.php'>Home</a>
-                            </li>            
-                            <li class='nav-item'>
-                                <a class='nav-link' href='search.php'>Search</a>
-                            </li>
-                            <li class='nav-item'>
-                                <a class='nav-link' href='my-profile.php'>My Profile</a>
-                            </li>
-                            <li class='nav-item'>
-                                <a class='nav-link' href='watchlist.php'>Watchlist</a>
-                            </li>
-                            <li class='nav-item'>
-                                <a class='nav-link' href='logout.php'>Log Out ({$_SESSION['username']})</a>
-                            </li>
-                    </ul>
-                </div>
-            </nav>
+                    <nav class='navbar navbar-expand-sm bg-warning justify-content-center'>
+                            <ul class='navbar-nav'>
+                                <li class='nav-item'>
+                                    <a class='nav-link' href='index.php'>Home</a>
+                                </li>
+                                <li class='nav-item'>
+                                    <a class='nav-link' href='search.php'>Search</a>
+                                </li>
+                                <li class='nav-item'>
+                                    <a class='nav-link' href='my-profile.php'>My Profile</a>
+                                </li>
+                                <li class='nav-item'>
+                                    <a class='nav-link' href='watchlist.php'>Watchlist</a>
+                                </li>
+                                <li class='nav-item'>
+                                    <a class='nav-link' href='logout.php'>Log Out ({$_SESSION['username']})</a>
+                                </li>
+                            </ul>
+                    </nav>
                 ";
 
             }
@@ -94,24 +89,22 @@
         $navigation = 
         "
         <body>
-        <nav class='navbar navbar-expand-sm bg-dark justify-content-center'>
-            <div class='container-fluid'>
-                <ul class='navbar-nav'>
-                    <li class='nav-item'>
-                        <a class='nav-link' href='index.php'>Home</a>
-                    </li>
-                    <li class='nav-item'>
-                    <a class='nav-link' href='search.php'>Search</a>
-                   </li>
-                    <li class='nav-item'>
-                        <a class='nav-link' href='signup.php'>Sign Up</a>
-                    </li>
-                    <li class='nav-item'>
-                        <a class='nav-link' href='login.php'>Log In</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+            <nav class='navbar navbar-expand-sm bg-warning justify-content-center'>
+                    <ul class='navbar-nav'>
+                        <li class='nav-item'>
+                            <a class='nav-link' href='index.php'>Home</a>
+                        </li>
+                        <li class='nav-item'>
+                            <a class='nav-link' href='search.php'>Search</a>
+                        </li>
+                        <li class='nav-item'>
+                            <a class='nav-link' href='signup.php'>Sign Up</a>
+                        </li>
+                        <li class='nav-item'>
+                            <a class='nav-link' href='login.php'>Log In</a>
+                        </li>
+                    </ul>
+            </nav>
         ";
 
     }
