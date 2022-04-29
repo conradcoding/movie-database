@@ -16,20 +16,20 @@ echo <<<_END
                     <hr>
                 
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="card">
                             <div class="card-header">
                                 <h5>Movie Search<h5>
                             </div>
                             <div class="card-body">
-                                <p>Search for a movie based on subcategories</p>
+                                <p>Search movie subcategories</p>
                                 <form action="movie-search.php">
                                     <button class="btn btn-primary btn-sm" href="">Search Movie</button>
                                 </form>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="card">
                             <div class="card-header">
                                 <h5>Actor Search<h5>
@@ -42,19 +42,32 @@ echo <<<_END
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5>Director Search<h5>
-                        </div>
-                        <div class="card-body">
-                            <p>Search for a director</p>
-                            <form action="director-search.php">
-                                <button class="btn btn-primary btn-sm" href="">Search Director</button>
-                            </form>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Director Search<h5>
+                            </div>
+                            <div class="card-body">
+                                <p>Search for a director</p>
+                                <form action="director-search.php">
+                                    <button class="btn btn-primary btn-sm" href="">Search Director</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Title Search<h5>
+                            </div>
+                            <div class="card-body">
+                                <p>Search for a movie title</p>
+                                <form action="title-search.php">
+                                    <button class="btn btn-primary btn-sm" href="">Search Title</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 </div>
                 <br>
