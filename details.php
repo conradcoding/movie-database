@@ -6,13 +6,27 @@
     $show_comments_form = false;
     $show_favourites_form = false;
     $add_comments_form = false;
+    $show_watchlist_form = false;
+    $delete_comments_form = false;
 
-    if (isset($_SESSION['loggedIn']))
+    $username = $_SESSION['username'];
+
+    if (isset($_SESSION['loggedIn']) && ($username != 'admin'))
     {
         $show_comments_form = true;
         $show_ratings_form = true;
         $show_favourites_form = true;
         $add_comments_form = true;
+        $show_watchlist_form = true;
+    }
+    else if (isset($_SESSION['loggedIn']) && ($username == 'admin'))
+    {
+        $show_comments_form = true;
+        $show_ratings_form = true;
+        $show_favourites_form = true;
+        $add_comments_form = true;
+        $delete_comments_form = true;
+        $show_watchlist_form = true;
     }
     else
     {
@@ -23,7 +37,7 @@
     if (isset($_POST['showMovie']))
     {
         $movie = $_POST['showMovie'];
-        $username = $_SESSION['username'];
+        //$username = $_SESSION['username'];
         
         $connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 
@@ -44,6 +58,9 @@
         $row2 = mysqli_fetch_assoc($result2);
         
         echo '
+        <div class="container">
+        <div class="row">
+        <div class="col-md-12 text-center">
         <h1 class="display-3">'.$row['title'].'</h1>
         </ul>
         <ul class="list-inline">
@@ -55,7 +72,7 @@
                 echo <<<_END
                 <li class="list-inline-item h4">
                     <form action="rate_film.php" method="POST">
-                        <input type="float" min="0.0" max="10.0" name="rating_value">
+                        <input type="number" min="0" max="10" name="rating_value">
                         <input type="hidden" name="movie" value='$movie'>
                         <input type="submit" value="Submit Rating">
                     </form>
@@ -91,47 +108,87 @@
                     _END;
                 }
             }
+            if ($show_watchlist_form)
+            {
+                $check_existing_watchlist_query = "SELECT movie_id, username FROM watchlist WHERE movie_id = '$movie' AND username = '$username'";
+                $check_existing_watchlist_result = mysqli_query($connection, $check_existing_watchlist_query);
+                $n = mysqli_num_rows($check_existing_watchlist_result);
+
+                if ($n > 0)
+                {
+                    echo <<<_END
+                    <li class="list-inline-item h4">
+                        <form action="updatewatchlist.php" method="POST">
+                            <input type="hidden" name="removeWatchList" value='$movie'>
+                            <input type="submit" value="Remove from Watchlist">
+                        </form>
+                    </li>
+                    _END;
+                }
+                else
+                {
+                    echo <<<_END
+                    <li class="list-inline-item h4">
+                        <form action="updatewatchlist.php" method="POST">
+                            <input type="hidden" name="addWatchList" value='$movie'>
+                            <input type="submit" id="3" value="Add to Watchlist">
+                        </form>
+                    </li>
+                    _END;
+                }
+            }
         echo '
-        </ul>
-        <div class="card col-sm-6 col-md-3 col-lg-3">
-            <img src="https://image.tmdb.org/t/p/original/'.$row['poster_path'].'" alt="movie poster" class="card-img-top">
-            <div class="card-body">
-                <h5 class="card-title">'.$row['tagline'].'</p>
-                <p class="card-text">'.$row['overview'].'</p>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Budget: $'.$row['budget'].'</li>
-                <li class="list-group-item">Revenue: $'.$row['revenue'].'</li>
-                <li class="list-group-item">'.$row['vote_average'].'/10</li>';
-
-                $moviegenre_query =  "SELECT DISTINCT JSON_UNQUOTE(JSON_EXTRACT(genres, CONCAT('$[', seq_0_to_100.seq, '].name'))) AS genre_name FROM movies JOIN seq_0_to_100 WHERE movie_id = 100 HAVING genre_name IS NOT NULL";
-                $moviegenre_result = mysqli_query($connection, $moviegenre_query);
-                $find_genres_n = mysqli_num_rows($moviegenre_result);
-
-                //If result...
-                if($find_genres_n > 0) {
-
-                    //For each result...
-                    foreach($moviegenre_result as $resultList)
-                    {
-
-                    ?>
-                    <div>
-                        <?//Generates a list item for each genre the movie has?>
-                        <li class="list-group-item"><?= $resultList['genre_name']; ?></li>
+        <br>
+            <div class="card mb-12">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="https://image.tmdb.org/t/p/original/'.$row['poster_path'].'" class="img-fluid rounded-start">
                     </div>
-                    <?php
-                    }
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h3 class="card-title">'.$row['tagline'].'</h3>
+                            <h5 class="card-text">'.$row['overview'].'</h5>
+                            <br><br>
+                            <h5 class="card-text">Budget: $'.$row['budget'].'</h5>
+                            <h5 class="card-text">Revenue: $'.$row['revenue'].'</h5>
+                            <h5 class="card-text">'.$row['vote_average'].'/10</h5>
+                            <ul class="list-group list-group-flush" style="color: rgb(252, 193, 56)">';
 
-                }
-                else {
-                    echo "No results!";
-                }
+                            $moviegenre_query =  "SELECT DISTINCT JSON_UNQUOTE(JSON_EXTRACT(genres, CONCAT('$[', seq_0_to_100.seq, '].name'))) AS genre_name FROM movies JOIN seq_0_to_100 WHERE movie_id = 100 HAVING genre_name IS NOT NULL";
+                            $moviegenre_result = mysqli_query($connection, $moviegenre_query);
+                            $find_genres_n = mysqli_num_rows($moviegenre_result);
             
-        echo'    </ul>
+                            //If result...
+                            if($find_genres_n > 0) {
+            
+                                //For each result...
+                                foreach($moviegenre_result as $resultList)
+                                {
+            
+                                ?>
+                                <div>
+                                    <?//Generates a list item for each genre the movie has?>
+                                    <li class="list-group-item"><?= $resultList['genre_name']; ?></li>
+                                </div>
+                                <?php
+                                }
+            
+                            }
+                            else {
+                                echo "No results!";
+                            }
+                            echo '
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        ';
+        echo'
         </div>
         <br>
-        <div class="card col-sm-6 col-md-3 col-lg-3">
+        <div class="card md-12">
             <div class="card-body">
                 <h5 class="card-title">Cast & Crew Information</h5>
                 <h6 class="card-title">Cast Members</h6>';
@@ -209,21 +266,22 @@
             if ($add_comments_form)
             {
                 echo <<<_END
-                <li class="list-inline-item h4">
-                    <form action="add_comment.php" method="POST">
-                        <input type="text" minlength = "1" maxlength = "500" name="comment">
-                        <input type="hidden" name="movie" value='$movie'>
-                        <input type="submit" class="btn btn-primary btn-sm float-end" value="Submit">
-                    </form>
-                </li>
+                    <div class="col-md-12 text-center">
+                        <form action="add_comment.php" method="POST">
+                        <br>
+                            <input type="text" minlength = "1" maxlength = "500" name="comment" placeholder="Enter comment here...">
+                            <input type="hidden" name="movie" value='$movie'>
+                            <input type="submit" class="btn btn-primary btn-sm" value="Submit">
+                        </form>
+                    </div>
                 _END;
             }
 
             echo <<<_END
-                <br>
                 <div class="container">
                 <div class="row">
                     <div class="col-md-12">
+                    <br>
                         <div class="card shadow">
                             <div class="card-header text-center">
                                 <h1>Comments</h1>
@@ -240,9 +298,21 @@
                                             <p>{$row['comment']}</p>
                                             <h5 class='card-title'>Posted by: {$row['username']}</h5>
                                             <h6 class='card-title'>{$row['comment_date']}</h6>
-                                        </div>
-                                    </div>
                                     _END;
+                                        if($delete_comments_form)
+                                        {
+                                            echo <<<_END
+                                            <form action="delete_comment.php" method="POST">
+                                                <input type="hidden" name="movie" value="$movie">
+                                                <input type="hidden" name="comment" value="{$row['comment']}">
+                                                <button class="btn btn-primary btn-sm">Delete</button>
+                                            </form>
+                                            _END;
+                                        }
+                                        echo <<<_END
+                                    </div>
+                                </div>
+                                _END;
                                 }
                             }
                             else
@@ -258,6 +328,9 @@
                             echo <<<_END
                         </div>
                     </div>
+                </div>
+                </div>
+                </div>
                 </div>
                 </div>
                 _END;
