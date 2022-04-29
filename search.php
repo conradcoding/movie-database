@@ -22,7 +22,7 @@ echo <<<_END
                                 <h5>Movie Search<h5>
                             </div>
                             <div class="card-body">
-                                <p>Search movie subcategories</p>
+                                <p>Search for a movie</p>
                                 <form action="movie-search.php">
                                     <button class="btn btn-primary btn-sm" href="">Search Movie</button>
                                 </form>

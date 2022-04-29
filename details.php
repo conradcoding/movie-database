@@ -1,6 +1,7 @@
 <?php
 
     include('header.php');
+    error_reporting(0);
 
     $show_ratings_form = false;
     $show_comments_form = false;
