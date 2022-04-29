@@ -10,13 +10,54 @@ body {
     background-color: rgb(32, 72, 152);
 }
 
-.post-container {
+p {
+  color: rgb(252, 193, 56);
+  font-size: 20px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+i {
+  color: rgb(252, 193, 56);
+}
+
+.movie-box {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.movie-details {
+  padding-left: 0.3rem;
+  padding-top: 0.5rem;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  white-space: initial;
+  width: 180px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.vote-avg {
+  padding-left: 0.5rem;
+}
+
+.movie-container {
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    flex-basis: auto;
-    margin-bottom: 3rem;
-    padding-right: 8rem;
-    padding-left: 8rem;
+    justify-content: flex-start;
+    overflow-x: auto;
+    white-space: nowrap;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+}
+
+.new-releases {
+  margin-left: 6rem;
+  margin-right: 6rem;
 }
