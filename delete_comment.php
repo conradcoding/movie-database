@@ -1,25 +1,20 @@
 <?php
 
-include 'header.php';
+include "header.php";
 
 $connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 
-if (isset($_SESSION['loggedIn']))
+if (isset($_SESSION['loggedIn']) && ($_SESSION['username'] == 'admin'))
 {
-    $movie = $_POST['movie'];
-    $comment = $_POST['comment'];
-    $comment_date = date("Y/m/d");
-    $username = $_SESSION['username'];
-    
-    //If user attempts to submit
-    if (isset($_POST['comment']))
+    if (isset($_POST['movie']) && (isset($_POST['comment'])))
     {
-        //Define query and result
-        $add_comment_query = "INSERT INTO comments (comment, comment_date, movie_id, username) VALUES ('$comment', '$comment_date', '$movie', '$username')";
-        $add_comment_result = mysqli_query($connection, $add_comment_query);
+        $movie = $_POST['movie'];
+        $comment = $_POST['comment'];
 
-        //If there is a result..
-        if($add_comment_result)
+        $delete_comment_query = "DELETE FROM comments WHERE movie_id = '$movie' AND comment = '$comment'";
+        $delete_comment_result = mysqli_query($connection, $delete_comment_query);
+
+        if ($delete_comment_result)
         {
             echo <<<_END
             <br><br>
@@ -31,7 +26,7 @@ if (isset($_SESSION['loggedIn']))
                                 <h1>System Message</h1>
                             </div>
                             <div class="card-body">
-                                <h5>You have successfully commented on this movie!</h5>
+                                <h5>You have successfully deleted this comment!</h5>
                                 <form action="details.php" method="post">
                                     <button class="btn btn-primary btn-sm" type="submit" name="showMovie" value="$movie">Click here to return</button>
                                 </form>
@@ -55,7 +50,7 @@ if (isset($_SESSION['loggedIn']))
                                 <h1>System Message</h1>
                             </div>
                             <div class="card-body">
-                                <h5>Your comment was unable to be posted!</h5>
+                                <h5>You were unable to delete this comment!</h5>
                                 <form action="details.php" method="post">
                                     <button class="btn btn-primary btn-sm" type="submit" name="showMovie" value="$movie">Click here to return</button>
                                 </form>
@@ -67,9 +62,7 @@ if (isset($_SESSION['loggedIn']))
             <br><br><br><br><br><br><br><br><br>
             _END;
         }
-
     }
-    //If user posts invalid input
     else
     {
         echo <<<_END
@@ -82,7 +75,7 @@ if (isset($_SESSION['loggedIn']))
                             <h1>System Message</h1>
                         </div>
                         <div class="card-body">
-                            <h5>Your comment was unable to be posted!</h5>
+                            <h5>You were unable to delete this comment!</h5>
                             <form action="details.php" method="post">
                                 <button class="btn btn-primary btn-sm" type="submit" name="showMovie" value="$movie">Click here to return</button>
                             </form>
@@ -119,8 +112,5 @@ else
     <br><br><br><br><br><br><br><br><br>
     _END;
 }
-
-//Close connection
-mysqli_close($connection);
 
 ?>

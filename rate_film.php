@@ -25,11 +25,26 @@ if (isset($_POST['rating_value']))
         
         if ($update_user_rating_result && $update_vote_average_result)
         {
-            echo "You have successfully changed your rating for this movie!";
             echo <<<_END
-                <form action="details.php" method="post">
-                    <button type="submit" name="showMovie" value="$movie">Click here to return</button>
-                </form>
+                <br><br>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <div class="card shadow">
+                                <div class="card-header">
+                                    <h1>System Message</h1>
+                                </div>
+                                <div class="card-body">
+                                    <h5>You have successfully updated your rating for this movie!</h5>
+                                    <form action="details.php" method="post">
+                                        <button class="btn btn-primary btn-sm" type="submit" name="showMovie" value="$movie">Click here to return</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br><br><br><br><br><br><br><br><br>
             _END;
         }
         else
@@ -51,16 +66,51 @@ if (isset($_POST['rating_value']))
 
         if($add_rating_result && $update_vote_count_result && $update_vote_average_result)
         {
-            echo "You have successfully rated this movie!";
             echo <<<_END
-                <form action="details.php" method="post">
-                    <button type="submit" name="showMovie" value="$movie">Click here to return</button>
-                </form>
+                <br><br>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <div class="card shadow">
+                                <div class="card-header">
+                                    <h1>System Message</h1>
+                                </div>
+                                <div class="card-body">
+                                    <h5>You have successfully rated this movie!</h5>
+                                    <form action="details.php" method="post">
+                                        <button class="btn btn-primary btn-sm" type="submit" name="showMovie" value="$movie">Click here to return</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br><br><br><br><br><br><br><br><br>
             _END;
         }
         else
         {
-            echo "You already rated this film!";
+            echo <<<_END
+                <br><br>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <div class="card shadow">
+                                <div class="card-header">
+                                    <h1>System Message</h1>
+                                </div>
+                                <div class="card-body">
+                                    <h5>You have already rated this movie!</h5>
+                                    <form action="details.php" method="post">
+                                        <button class="btn btn-primary btn-sm" type="submit" name="showMovie" value="$movie">Click here to return</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br><br><br><br><br><br><br><br><br>
+            _END;
         }
     }
 }
@@ -68,5 +118,7 @@ else
 {
     echo "Error!";
 }
+
+include "footer.php";
 
 ?>
