@@ -155,7 +155,7 @@
                             <h5 class="card-text">'.$row['vote_average'].'/10</h5>
                             <ul class="list-group list-group-flush" style="color: rgb(252, 193, 56)">';
 
-                            $moviegenre_query =  "SELECT DISTINCT JSON_UNQUOTE(JSON_EXTRACT(genres, CONCAT('$[', seq_0_to_100.seq, '].name'))) AS genre_name FROM movies JOIN seq_0_to_100 WHERE movie_id = 100 HAVING genre_name IS NOT NULL";
+                            $moviegenre_query =  "SELECT DISTINCT JSON_UNQUOTE(JSON_EXTRACT(genres, CONCAT('$[', seq_0_to_100.seq, '].name'))) AS genre_name FROM movies JOIN seq_0_to_100 WHERE movie_id = $movie HAVING genre_name IS NOT NULL";
                             $moviegenre_result = mysqli_query($connection, $moviegenre_query);
                             $find_genres_n = mysqli_num_rows($moviegenre_result);
             
@@ -195,7 +195,7 @@
                 <h6 class="card-title">Cast Members</h6>';
 
                 $actor_query =  "SELECT DISTINCT JSON_UNQUOTE(JSON_EXTRACT(cast, CONCAT('$[', seq_0_to_100.seq, '].name'))) 
-                AS actor_name, JSON_UNQUOTE(JSON_EXTRACT(cast, CONCAT('$[', seq_0_to_100.seq, '].character'))) AS actor_char FROM credits JOIN seq_0_to_100 WHERE movie_id = 100 HAVING actor_name IS NOT NULL";
+                AS actor_name, JSON_UNQUOTE(JSON_EXTRACT(cast, CONCAT('$[', seq_0_to_100.seq, '].character'))) AS actor_char FROM credits JOIN seq_0_to_100 WHERE movie_id = $movie HAVING actor_name IS NOT NULL";
                 $actor_result = mysqli_query($connection, $actor_query);
                 $find_actors_n = mysqli_num_rows($actor_result);
 
@@ -226,7 +226,7 @@
         <h6 class="card-title">Crew Members</h6>';
         
                 $crew_query =  "SELECT DISTINCT JSON_UNQUOTE(JSON_EXTRACT(crew, CONCAT('$[', seq_0_to_100.seq, '].job'))) 
-                AS crew_job, JSON_UNQUOTE(JSON_EXTRACT(crew, CONCAT('$[', seq_0_to_100.seq, '].name'))) AS crew_name FROM credits JOIN seq_0_to_100 WHERE movie_id = 100 HAVING crew_name IS NOT NULL";
+                AS crew_job, JSON_UNQUOTE(JSON_EXTRACT(crew, CONCAT('$[', seq_0_to_100.seq, '].name'))) AS crew_name FROM credits JOIN seq_0_to_100 WHERE movie_id = $movie HAVING crew_name IS NOT NULL";
                 $crew_result = mysqli_query($connection, $crew_query);
                 $find_crew_n = mysqli_num_rows($crew_result);
 
